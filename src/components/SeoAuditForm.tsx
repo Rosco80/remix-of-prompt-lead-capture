@@ -87,7 +87,7 @@ export default function SeoAuditForm() {
                 <div className="space-y-3">
                   <h2 className="text-3xl font-bold text-foreground">Thank You!</h2>
                   <p className="text-foreground/70 text-lg leading-relaxed">
-                    Your SEO audit request has been received. Our team will analyze your website and contact you within 24 hours with detailed insights.
+                    Your SEO audit request has been received. You'll receive a detailed PDF report via email within the next 30 minutes at the email address you provided.
                   </p>
                 </div>
                 
