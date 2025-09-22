@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Search, Globe, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 
@@ -10,15 +11,30 @@ interface FormData {
   fullName: string;
   companyName: string;
   phoneNumber: string;
+  countryCode: string;
   companyWebsite: string;
   email: string;
 }
+
+const countryCodes = [
+  { code: "+1", country: "US/CA", flag: "🇺🇸" },
+  { code: "+44", country: "UK", flag: "🇬🇧" },
+  { code: "+91", country: "India", flag: "🇮🇳" },
+  { code: "+61", country: "Australia", flag: "🇦🇺" },
+  { code: "+49", country: "Germany", flag: "🇩🇪" },
+  { code: "+33", country: "France", flag: "🇫🇷" },
+  { code: "+81", country: "Japan", flag: "🇯🇵" },
+  { code: "+86", country: "China", flag: "🇨🇳" },
+  { code: "+55", country: "Brazil", flag: "🇧🇷" },
+  { code: "+7", country: "Russia", flag: "🇷🇺" },
+];
 
 export default function SeoAuditForm() {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     companyName: '',
     phoneNumber: '',
+    countryCode: '+1',
     companyWebsite: '',
     email: ''
   });
@@ -95,13 +111,14 @@ export default function SeoAuditForm() {
                   <Button 
                     onClick={() => {
                       setIsSubmitted(false);
-                      setFormData({
-                        fullName: '',
-                        companyName: '',
-                        phoneNumber: '',
-                        companyWebsite: '',
-                        email: ''
-                      });
+                        setFormData({
+                          fullName: '',
+                          companyName: '',
+                          phoneNumber: '',
+                          countryCode: '+1',
+                          companyWebsite: '',
+                          email: ''
+                        });
                     }}
                     variant="outline"
                     className="bg-white/10 backdrop-blur-sm border-white/20 text-foreground hover:bg-white/20 hover:scale-105 transition-all duration-300 h-12 px-8 rounded-xl"
@@ -272,15 +289,39 @@ export default function SeoAuditForm() {
                         <Label htmlFor="phoneNumber" className="text-sm font-semibold text-foreground/90">
                           Phone Number *
                         </Label>
-                        <Input
-                          id="phoneNumber"
-                          type="tel"
-                          required
-                          placeholder="Enter your phone number"
-                          value={formData.phoneNumber}
-                          onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-                          className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground placeholder:text-foreground/50"
-                        />
+                        <div className="flex gap-3">
+                          <Select
+                            value={formData.countryCode}
+                            onValueChange={(value) => handleInputChange('countryCode', value)}
+                          >
+                            <SelectTrigger className="w-32 h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50">
+                              {countryCodes.map((country) => (
+                                <SelectItem 
+                                  key={country.code} 
+                                  value={country.code}
+                                  className="focus:bg-primary/10 focus:text-foreground cursor-pointer"
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <span>{country.flag}</span>
+                                    <span>{country.code}</span>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <Input
+                            id="phoneNumber"
+                            type="tel"
+                            required
+                            placeholder="Enter your phone number"
+                            value={formData.phoneNumber}
+                            onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                            className="flex-1 h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground placeholder:text-foreground/50"
+                          />
+                        </div>
                       </div>
 
                       <div className="space-y-3">
