@@ -62,10 +62,16 @@ export default {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-secondary": "var(--gradient-secondary)",
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-glass": "var(--gradient-glass)",
+        "gradient-mesh": "var(--gradient-mesh)",
       },
       boxShadow: {
         "glow": "var(--shadow-glow)",
         "elegant": "var(--shadow-elegant)",
+        "glass": "var(--shadow-glass)",
+      },
+      backdropFilter: {
+        "glass": "var(--blur-backdrop)",
       },
       borderRadius: {
         lg: "var(--radius)",
