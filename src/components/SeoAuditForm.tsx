@@ -54,12 +54,17 @@ export default function SeoAuditForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://n8n-1prompt.99players.com/webhook/27ea5610-f693-4370-a0c9-8ceb5253a49d', {
+      const payload = {
+        ...formData,
+        phoneNumber: `${formData.countryCode}${formData.phoneNumber}`
+      };
+
+      const response = await fetch('https://n8n.soryle.space/webhook-test/27ea5610-f693-4370-a0c9-8ceb5253a49d', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
