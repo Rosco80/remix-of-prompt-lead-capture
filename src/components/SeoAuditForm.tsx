@@ -87,7 +87,7 @@ export default function SeoAuditForm() {
       <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center p-4">
         <div className="fixed inset-0 bg-gradient-mesh opacity-40" />
         <div className="fixed inset-0 bg-gradient-hero" />
-        
+
         <div className="relative z-10 w-full max-w-lg animate-scale-in">
           <Card className="bg-gradient-glass backdrop-blur-xl border border-white/20 shadow-glass overflow-hidden">
             <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
@@ -99,26 +99,26 @@ export default function SeoAuditForm() {
                     <CheckCircle2 className="h-10 w-10 text-primary-foreground" />
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <h2 className="text-3xl font-bold text-foreground">Thank You!</h2>
                   <p className="text-foreground/70 text-lg leading-relaxed">
                     Your SEO audit request has been received. You'll receive a detailed PDF report via email within the next 30 minutes at the email address you provided.
                   </p>
                 </div>
-                
+
                 <div className="pt-4">
-                  <Button 
+                  <Button
                     onClick={() => {
                       setIsSubmitted(false);
-                        setFormData({
-                          fullName: '',
-                          companyName: '',
-                          phoneNumber: '',
-                          countryCode: '+1',
-                          companyWebsite: '',
-                          email: ''
-                        });
+                      setFormData({
+                        fullName: '',
+                        companyName: '',
+                        phoneNumber: '',
+                        countryCode: '+1',
+                        companyWebsite: '',
+                        email: ''
+                      });
                     }}
                     variant="outline"
                     className="bg-white/10 backdrop-blur-sm border-white/20 text-foreground hover:bg-white/20 hover:scale-105 transition-all duration-300 h-12 px-8 rounded-xl"
@@ -139,7 +139,7 @@ export default function SeoAuditForm() {
       {/* Background Effects */}
       <div className="fixed inset-0 bg-gradient-mesh opacity-40" />
       <div className="fixed inset-0 bg-gradient-hero" />
-      
+
       {/* Header Section */}
       <header className="relative z-10 backdrop-blur-xl bg-gradient-glass border-b border-white/10">
         <div className="container mx-auto px-4 py-12">
@@ -151,8 +151,9 @@ export default function SeoAuditForm() {
                   <Search className="h-7 w-7 text-primary-foreground" />
                 </div>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent tracking-tight">
-                1Prompt License
+              <h1 className="text-4xl font-extrabold tracking-tighter flex items-center font-sans">
+                <span className="text-[#C4EF17] italic">Autoflow</span>
+                <span className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] ml-0.5">Solutions</span>
               </h1>
             </div>
             <div className="max-w-3xl mx-auto space-y-4">
@@ -171,7 +172,7 @@ export default function SeoAuditForm() {
       <main className="relative z-10 container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            
+
             {/* Left Side - Benefits */}
             <div className="animate-fade-in space-y-8">
               <div className="text-center lg:text-left">
@@ -185,18 +186,18 @@ export default function SeoAuditForm() {
                   What You'll Receive
                 </h2>
               </div>
-              
+
               <div className="grid gap-4">
                 {[
                   "Complete technical SEO analysis",
-                  "On-page optimization recommendations", 
+                  "On-page optimization recommendations",
                   "Keyword research and strategy",
                   "Competitor analysis insights",
                   "Performance metrics report",
                   "Actionable improvement roadmap"
                 ].map((benefit, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="group flex items-start gap-4 p-5 rounded-2xl bg-gradient-glass backdrop-blur-md border border-white/10 hover:border-primary/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-glow"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
@@ -217,10 +218,10 @@ export default function SeoAuditForm() {
                       <Globe className="h-6 w-6 text-primary-foreground" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">Why Choose 1Prompt License?</h3>
+                  <h3 className="text-xl font-bold text-foreground">Why Choose Autoflow Solutions?</h3>
                 </div>
                 <p className="text-foreground/70 leading-relaxed">
-                  Our team of SEO experts has helped over 500+ businesses improve their search rankings and online visibility. 
+                  Our team of SEO experts has helped over 500+ businesses improve their search rankings and online visibility.
                   Get professional insights that drive real results.
                 </p>
               </div>
@@ -236,7 +237,7 @@ export default function SeoAuditForm() {
                     Fill out the form below to get started. No commitment required.
                   </CardDescription>
                 </CardHeader>
-                
+
                 <CardContent className="relative space-y-8">
                   <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="grid gap-6">
@@ -299,8 +300,8 @@ export default function SeoAuditForm() {
                             </SelectTrigger>
                             <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50">
                               {countryCodes.map((country) => (
-                                <SelectItem 
-                                  key={country.code} 
+                                <SelectItem
+                                  key={country.code}
                                   value={country.code}
                                   className="focus:bg-primary/10 focus:text-foreground cursor-pointer"
                                 >
@@ -341,8 +342,8 @@ export default function SeoAuditForm() {
                     </div>
 
                     <div className="pt-4">
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         disabled={isSubmitting}
                         className="w-full h-14 bg-gradient-primary hover:scale-[1.02] hover:shadow-glow text-primary-foreground font-semibold text-lg rounded-xl transition-all duration-300 relative overflow-hidden group"
                       >
@@ -360,7 +361,7 @@ export default function SeoAuditForm() {
                       </Button>
 
                       <p className="text-xs text-foreground/60 text-center mt-6 leading-relaxed">
-                        By submitting this form, you agree to receive communication from 1Prompt License 
+                        By submitting this form, you agree to receive communication from Autoflow Solutions
                         regarding your SEO audit and related services.
                       </p>
                     </div>
