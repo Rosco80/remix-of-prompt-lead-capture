@@ -332,19 +332,19 @@ export default function SeoAuditForm() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{backgroundColor: '#0a0a0f'}}>
       {/* Background Effects */}
       <div className="fixed inset-0 bg-gradient-mesh opacity-40" />
       <div className="fixed inset-0 bg-gradient-hero" />
 
       {/* Header Section */}
-      <header className="relative z-10 backdrop-blur-xl bg-gradient-glass border-b border-white/10">
+      <header className="relative z-10 backdrop-blur-xl border-b border-white/10" style={{backgroundColor: 'rgba(10,10,15,0.85)'}}>
         <div className="container mx-auto px-4 py-12">
           <div className="text-center animate-fade-in">
             <div className="mb-6">
               <h1 className="text-5xl tracking-tight flex items-baseline justify-center font-sans">
                 <span className="text-[#C4EF17] italic font-semibold">Autoflow</span>
-                <span className="text-white font-extrabold ml-1">Solutions</span>
+                <span className="font-extrabold ml-1" style={{color: '#ffffff'}}>Solutions</span>
               </h1>
             </div>
             <div className="max-w-3xl mx-auto space-y-4">
