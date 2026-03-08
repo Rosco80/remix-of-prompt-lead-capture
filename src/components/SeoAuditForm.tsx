@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Globe, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import { Globe, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 
 interface FormData {
   fullName: string;
@@ -341,16 +341,10 @@ export default function SeoAuditForm() {
       <header className="relative z-10 backdrop-blur-xl bg-gradient-glass border-b border-white/10">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center animate-fade-in">
-            <div className="inline-flex items-center gap-3 mb-6 p-4 rounded-2xl bg-gradient-glass backdrop-blur-md border border-white/10 shadow-glass">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-primary rounded-xl blur-md opacity-75" />
-                <div className="relative p-3 bg-gradient-primary rounded-xl">
-                  <Search className="h-7 w-7 text-primary-foreground" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-extrabold tracking-tighter flex items-center font-sans">
-                <span className="text-[#C4EF17] italic">Autoflow</span>
-                <span className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] ml-0.5">Solutions</span>
+            <div className="mb-6">
+              <h1 className="text-5xl tracking-tight flex items-baseline justify-center font-sans">
+                <span className="text-[#C4EF17] italic font-semibold">Autoflow</span>
+                <span className="text-white font-extrabold ml-1">Solutions</span>
               </h1>
             </div>
             <div className="max-w-3xl mx-auto space-y-4">
