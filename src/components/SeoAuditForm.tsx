@@ -224,7 +224,7 @@ export default function SeoAuditForm() {
     fullName: '',
     companyName: '',
     phoneNumber: '',
-    countryCode: '+1',
+    countryCode: '+1-US',
     companyWebsite: '',
     email: ''
   });
@@ -244,9 +244,10 @@ export default function SeoAuditForm() {
     setIsSubmitting(true);
 
     try {
+      const dialCode = formData.countryCode.split('-')[0];
       const payload = {
         ...formData,
-        phoneNumber: `${formData.countryCode}${formData.phoneNumber}`
+        phoneNumber: `${dialCode}${formData.phoneNumber}`
       };
 
       const webhookUrl = 'https://n8n.soryle.space/webhook/27ea5610-f693-4370-a0c9-8ceb5253a49d';
@@ -311,7 +312,7 @@ export default function SeoAuditForm() {
                         fullName: '',
                         companyName: '',
                         phoneNumber: '',
-                        countryCode: '+1',
+                        countryCode: '+1-US',
                         companyWebsite: '',
                         email: ''
                       });
