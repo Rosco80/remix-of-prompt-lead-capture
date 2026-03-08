@@ -59,7 +59,7 @@ export default function SeoAuditForm() {
         phoneNumber: `${formData.countryCode}${formData.phoneNumber}`
       };
 
-      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL || 'https://n8n.soryle.space/webhook/27ea5610-f693-4370-a0c9-8ceb5253a49d';
+      const webhookUrl = 'https://n8n.soryle.space/webhook/27ea5610-f693-4370-a0c9-8ceb5253a49d';
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
