@@ -339,10 +339,10 @@ export default function SeoAuditForm() {
 
       {/* Header Section */}
       <header className="relative z-10 border-b border-white/10" style={{backgroundColor: '#111116'}}>
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-8">
           <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <h1 className="text-5xl tracking-tight flex items-baseline justify-center font-sans">
+            <div className="mb-4">
+              <h1 className="text-3xl sm:text-4xl tracking-tight flex items-baseline justify-center font-sans">
                 <span className="text-[#C4EF17] italic font-semibold">Autoflow</span>
                 <span className="font-extrabold ml-1" style={{color: '#ffffff'}}>Solutions</span>
               </h1>
@@ -360,7 +360,7 @@ export default function SeoAuditForm() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 container mx-auto px-4 py-16">
+      <main className="relative z-10 container mx-auto px-4 pt-12 pb-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
 
