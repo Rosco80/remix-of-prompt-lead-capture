@@ -494,16 +494,17 @@ export default function SeoAuditForm() {
                             <SelectTrigger className="w-32 h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground">
                               <SelectValue />
                             </SelectTrigger>
-                            <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50">
+                            <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50 max-h-60">
                               {countryCodes.map((country) => (
                                 <SelectItem
-                                  key={country.code}
-                                  value={country.code}
+                                  key={`${country.code}-${country.country}`}
+                                  value={`${country.code}-${country.country}`}
                                   className="focus:bg-primary/10 focus:text-foreground cursor-pointer"
                                 >
                                   <div className="flex items-center gap-2">
                                     <span>{country.flag}</span>
                                     <span>{country.code}</span>
+                                    <span className="text-foreground/50 text-xs">{country.country}</span>
                                   </div>
                                 </SelectItem>
                               ))}
