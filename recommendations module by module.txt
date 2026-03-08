@@ -1,0 +1,456 @@
+recommendations module by module, in the order I would fix them.
+
+1) Aggregate
+
+What it is doing now
+It is likely bundling the SEO audit payload into one field for the agent.
+
+What is likely wrong
+Nothing structurally fatal by itself. The problem is that it may be passing too much raw crawl data into the agent, which inflates the prompt and increases formatting failures.
+
+Recommendations
+
+Keep Aggregate, but make it output a clean summarized object, not the full raw API response.
+
+Extract only the fields the report actually needs, such as:
+
+title
+
+description
+
+h1/h2/h3
+
+internal/external links count
+
+images count
+
+render-blocking scripts count
+
+onpage score
+
+readability metrics
+
+broken links/resources
+
+canonical status
+
+alt/title image issues
+
+schema/micromarkup status
+
+Remove deeply nested metadata the model does not need.
+
+Rename the output clearly, for example:
+
+seo_summary
+
+not output_data
+
+Best practice
+Do the analysis before the agent, not inside the agent.
+
+2) PDF_First_Page
+
+What it is doing now
+It is a hardcoded HTML cover page template.
+
+What is wrong
+It contains stale and conflicting branding:
+
+1Prompt License
+
+generic automation copy
+
+stats like 247%, 99%, 24/7
+
+fixed report date
+
+likely unrelated branding language
+
+That makes the final report inconsistent and can confuse the model.
+
+Recommendations
+
+Keep this node only if you truly need a separate cover page.
+
+Replace all hardcoded branding with variables:
+
+company name
+
+report date
+
+report title
+
+optional subtitle
+
+Remove fake stats unless they are dynamically injected from actual data.
+
+Remove sales-style claims from an audit cover unless they are intentional.
+
+Better approach
+Do not pass the full cover-page HTML into the LLM. Store it as a static template and merge it after the agent finishes.
+
+3) PDF_Last_Page1
+
+What it is doing now
+It is a hardcoded HTML closing page / CTA page.
+
+What is wrong
+This is one of the dirtiest modules in the workflow because it contains unrelated commercial content:
+
+1Prompt License
+
+quimple.agency
+
+Book a call with Eugene
+
+urgency copy like “Limited spots released each week”
+
+That is not audit logic. It is stale template baggage.
+
+Recommendations
+
+Either remove this node entirely, or rebuild it as a simple branded closing page.
+
+If you keep it:
+
+replace CTA URL with your actual URL
+
+replace name and branding
+
+remove fake urgency
+
+make it neutral and consistent with the audit
+
+Do not pass this entire page into the LLM prompt.
+
+Best approach
+Append this page later in HTML assembly, outside the LLM.
+
+4) Sample_Code
+
+What it is doing now
+It provides a full HTML reference example for the model to imitate.
+
+What is wrong
+This node is one of the main reasons the prompt is fragile:
+
+the sample is huge
+
+it contains old company content
+
+it adds lots of CSS and HTML noise
+
+it increases token load
+
+it makes JSON escaping harder
+
+it encourages the model to copy irrelevant content
+
+Recommendations
+
+Do not send full sample HTML.
+
+Replace it with a minimal style guide only.
+
+For example, give the agent just:
+
+preferred color palette
+
+section layout rules
+
+card style rules
+
+heading hierarchy
+
+“include TOC”
+
+“PDF friendly, no dark background on inner pages”
+
+That is enough.
+
+Best practice
+Let the model generate the content structure, then use a deterministic HTML template node to wrap it.
+
+5) Report_Generator_Agent
+
+What it is doing now
+It is trying to do too much at once:
+
+read all business/strategy/SEO data
+
+obey full formatting instructions
+
+generate full HTML
+
+serialize that HTML inside JSON
+
+satisfy a parser schema
+
+What is wrong
+This is the main failure point.
+
+You have at least four issues here:
+
+Conflicting output instructions
+
+prompt says: no output key
+
+schema says: use output
+
+Conflicting markdown rules
+
+prompt says: no markdown
+
+parser instruction says: include markdown codeblock
+
+Prompt bloat
+
+too much HTML/template material
+
+Massive HTML inside JSON string
+
+very easy to break escaping
+
+Recommendations
+
+Simplify the agent’s job drastically.
+
+Make it return content data, not final HTML.
+
+Recommended return shape:
+
+{
+  "report_type": "Website Audit",
+  "format": "HTML",
+  "title": "Autoflow Solutions Website Audit",
+  "sections": [
+    {
+      "id": "executive-summary",
+      "heading": "Executive Summary",
+      "html": "<p>...</p>"
+    }
+  ]
+}
+
+Or even better:
+
+{
+  "report_type": "Website Audit",
+  "format": "HTML",
+  "executive_summary": "...",
+  "business_summary": "...",
+  "target_audience": "...",
+  "technical_seo": "...",
+  "eeat": "...",
+  "local_seo": "...",
+  "ai_search": "...",
+  "conversion": "...",
+  "kpis": "...",
+  "insights": "..."
+}
+
+Then assemble the HTML in a later node.
+
+If you insist on HTML from the agent
+
+ask for only the inner body HTML
+
+not full <!DOCTYPE html>...</html>
+
+not the cover page
+
+not the last page
+
+not a full CSS-heavy document
+
+6) Structured Output Parser1
+
+What it is doing now
+It validates the model output against a schema.
+
+What is wrong
+This is where the exact structural conflict appears.
+
+Your prompt says:
+
+top-level keys must be report_type, format, content
+
+do not add output
+
+But the schema shown in your prompt expects:
+
+{
+  "output": {
+    "report_type": "...",
+    "format": "...",
+    "content": "..."
+  }
+}
+
+That is the direct mismatch.
+
+Recommendations
+Use one schema only, and make it match the output you actually want.
+
+Use this schema:
+
+{
+  "type": "object",
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "const": "Website Audit"
+    },
+    "format": {
+      "type": "string",
+      "const": "HTML"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": ["report_type", "format", "content"],
+  "additionalProperties": false
+}
+
+Also
+
+turn off auto-fix until the structure is stable
+
+test raw model output first
+
+once stable, re-enable parser if needed
+
+7) OpenRouter Chat Model
+
+What it is doing now
+It is generating the report.
+
+What is likely wrong
+Not necessarily the model itself. The model is being set up to fail because:
+
+prompt is too long
+
+instructions conflict
+
+output is too strict
+
+HTML string is too large
+
+Recommendations
+
+lower complexity before blaming the model
+
+keep the same model at first
+
+reduce prompt size
+
+reduce output burden
+
+test with a simpler schema
+
+Practical test
+Ask it to return only:
+
+{
+  "report_type": "Website Audit",
+  "format": "HTML",
+  "content": "<h1>Test</h1><p>Test body</p>"
+}
+
+If that passes, the problem is not the model. It is your prompt architecture.
+
+8) PDF generation node
+
+What it is doing now
+It likely expects something like:
+
+$json.output.content
+
+What is wrong
+If you remove the output wrapper, this mapping becomes wrong.
+
+Recommendations
+
+if your final parser schema is flat, use:
+
+{{$json.content}}
+
+verify the exact shape by looking at the successful item output
+
+do not guess the path
+
+9) Overall architecture recommendation
+
+Your workflow should be split into three layers:
+
+Layer A — Data prep
+
+Nodes:
+
+Business Research
+
+Strategy
+
+SEO crawl
+
+Aggregate/Summarize
+
+Output:
+
+one clean structured data object
+
+Layer B — Report writing
+
+Node:
+
+Report_Generator_Agent
+
+Output:
+
+structured sections or light HTML fragments
+
+Layer C — Presentation
+
+Nodes:
+
+HTML assembler
+
+Cover page template
+
+Last page template
+
+PDF generator
+
+Output:
+
+final complete HTML and PDF
+
+That is much more stable than asking one model call to do everything.
+
+Priority order to fix
+
+Structured Output Parser1
+
+Report_Generator_Agent
+
+Sample_Code
+
+PDF_First_Page
+
+PDF_Last_Page1
+
+Aggregate
+
+PDF body mapping
+
+My blunt assessment
+
+The biggest issues are:
+
+Structured Output Parser1 has the wrong contract
+
+Report_Generator_Agent has conflicting instructions
+
+Sample_Code, PDF_First_Page, and PDF_Last_Page1 are bloating and contaminating the prompt

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Audit Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0f1419;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(217, 119, 6, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(217, 119, 6, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+
+        .cover-page {
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px;
+            z-index: 1;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #c4ef17;
+            margin-bottom: 12px;
+        }
+
+        .report-badge {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-content-area {
+            flex: 1;
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .content-left {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #c4ef17;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .main-headline {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 0.95;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .headline-accent {
+            color: #c4ef17;
+            position: relative;
+        }
+
+        .headline-accent::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #c4ef17, #c4ef17);
+            border-radius: 2px;
+        }
+
+        .audit-subtitle {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 0.95;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 420px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 12px 16px;
+            backdrop-filter: blur(10px);
+            min-width: 100px;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #c4ef17;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .content-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 380px;
+        }
+
+        .system-container {
+            width: 360px;
+            height: 360px;
+            position: relative;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .system-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+        }
+
+        .core-title {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .core-subtitle {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .system-element {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+        }
+
+        .analytics-element {
+            grid-column: 1;
+            grid-row: 1;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+
+        .automation-element {
+            grid-column: 2;
+            grid-row: 1;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        }
+
+        .strategy-element {
+            grid-column: 1;
+            grid-row: 2;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        .optimization-element {
+            grid-column: 2;
+            grid-row: 2;
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+        }
+
+        .element-title {
+            font-size: 10px;
+            font-weight: 500;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .element-value {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .element-metric {
+            font-size: 9px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(45deg, #f59e0b 0%, #d97706 100%);
+            height: 2px;
+            border-radius: 1px;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+            z-index: 15;
+        }
+
+        .line-top-left {
+            width: 50px;
+            top: 140px;
+            left: 110px;
+            transform: rotate(45deg);
+        }
+
+        .line-top-right {
+            width: 50px;
+            top: 140px;
+            right: 110px;
+            transform: rotate(-45deg);
+        }
+
+        .line-bottom-left {
+            width: 50px;
+            bottom: 140px;
+            left: 110px;
+            transform: rotate(-45deg);
+        }
+
+        .line-bottom-right {
+            width: 50px;
+            bottom: 140px;
+            right: 110px;
+            transform: rotate(45deg);
+        }
+
+        .floating-metric {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 8px;
+            font-weight: 700;
+            color: #f59e0b;
+            backdrop-filter: blur(10px);
+            z-index: 25;
+        }
+
+        .metric-1 {
+            top: 15px;
+            left: 15px;
+        }
+
+        .metric-2 {
+            top: 15px;
+            right: 15px;
+        }
+
+        .metric-3 {
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .metric-4 {
+            bottom: 15px;
+            right: 15px;
+        }
+
+        .grid-background {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(75, 85, 99, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(75, 85, 99, 0.05) 1px, transparent 1px);
+            background-size: 18px 18px;
+            border-radius: 16px;
+            opacity: 0.6;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .glass-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+            border-radius: 16px 16px 0 0;
+            pointer-events: none;
+        }
+
+        .client-section {
+            margin-top: auto;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid #475569;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .client-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .client-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .client-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .divider {
+            width: 1px;
+            height: 40px;
+            background: #475569;
+            margin: 0 24px;
+        }
+
+        .report-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .report-date {
+            font-size: 14px;
+            font-weight: 600;
+            color: #d97706;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 40%;
+            right: 30%;
+            z-index: 0;
+        }
+
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .cover-page {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="cover-page">
+            <div class="bg-pattern"></div>
+            <div class="glow-effect"></div>
+
+            <div class="header-section">
+                <div class="logo-container">
+                    <div class="brand-name">Autoflow Solutions</div>
+                </div>
+                <div class="report-badge">Website Audit Report</div>
+            </div>
+
+            <div class="main-content-area">
+                <div class="content-left">
+                    <div class="tagline">SEO, Content & Conversion Review</div>
+                    <h1 class="main-headline">Website Audit</h1>
+                    <h2 class="audit-subtitle"><span class="headline-accent">Report</span></h2>
+                    <p class="description">
+                        A structured review of website performance, content clarity, technical SEO foundations, user experience, and conversion readiness.
+                    </p>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number">SEO</div>
+                            <div class="stat-label">Assessment</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">UX</div>
+                            <div class="stat-label">Review</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">AI</div>
+                            <div class="stat-label">Readiness</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-right">
+                    <div class="system-container">
+                        <div class="grid-background"></div>
+                        <div class="ambient-glow"></div>
+                        <div class="glass-overlay"></div>
+
+                        <div class="system-core">
+                            <div class="core-title">WEBSITE</div>
+                            <div class="core-subtitle">AUDIT</div>
+                        </div>
+
+                        <div class="system-element analytics-element">
+                            <div class="element-title">Technical SEO</div>
+                            <div class="element-value">Structure</div>
+                            <div class="element-metric">Health Check</div>
+                        </div>
+
+                        <div class="system-element automation-element">
+                            <div class="element-title">Content</div>
+                            <div class="element-value">Clarity</div>
+                            <div class="element-metric">Messaging Review</div>
+                        </div>
+
+                        <div class="system-element strategy-element">
+                            <div class="element-title">Strategy</div>
+                            <div class="element-value">Positioning</div>
+                            <div class="element-metric">Market Fit</div>
+                        </div>
+
+                        <div class="system-element optimization-element">
+                            <div class="element-title">Conversion</div>
+                            <div class="element-value">Readiness</div>
+                            <div class="element-metric">UX Analysis</div>
+                        </div>
+
+                        <div class="connection-line line-top-left"></div>
+                        <div class="connection-line line-top-right"></div>
+                        <div class="connection-line line-bottom-left"></div>
+                        <div class="connection-line line-bottom-right"></div>
+
+                        <div class="floating-metric metric-1">SEO</div>
+                        <div class="floating-metric metric-2">UX</div>
+                        <div class="floating-metric metric-3">EEAT</div>
+                        <div class="floating-metric metric-4">CRO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="client-section">
+                <div class="client-info">
+                    <div class="client-label">Prepared For</div>
+                    <div class="client-name">{{ $('Webhook1').item.json.body.companyName }}</div>
+                </div>
+                <div class="divider"></div>
+                <div class="report-info">
+                    <div class="client-label">Report Date</div>
+                    <div class="report-date">{{ $now.format('MMMM yyyy') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
