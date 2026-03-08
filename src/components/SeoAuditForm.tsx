@@ -334,7 +334,7 @@ export default function SeoAuditForm() {
   return (
     <div className="min-h-screen relative overflow-hidden" style={{backgroundColor: '#0a0a0f'}}>
       {/* Background Effects */}
-      <div className="fixed inset-0 bg-gradient-mesh opacity-40" />
+      <div className="fixed inset-0 bg-gradient-mesh opacity-20" />
       <div className="fixed inset-0 bg-gradient-hero" />
 
       {/* Header Section */}
