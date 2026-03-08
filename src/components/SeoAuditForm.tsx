@@ -333,9 +333,9 @@ export default function SeoAuditForm() {
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{backgroundColor: '#111116'}}>
-      {/* Background Effects */}
-      <div className="fixed inset-0 bg-gradient-mesh opacity-25" />
-      <div className="fixed inset-0 bg-gradient-hero" />
+      {/* Background Effects - z-20 so they render above header too, pointer-events-none so they don't block clicks */}
+      <div className="fixed inset-0 bg-gradient-mesh opacity-25 pointer-events-none" style={{zIndex: 20}} />
+      <div className="fixed inset-0 bg-gradient-hero pointer-events-none" style={{zIndex: 20}} />
 
       {/* Header Section */}
       <header className="relative z-10 border-b border-white/10" style={{backgroundColor: '#111116'}}>
