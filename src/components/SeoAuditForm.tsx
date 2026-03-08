@@ -332,13 +332,13 @@ export default function SeoAuditForm() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{backgroundColor: '#0a0a0f'}}>
+    <div className="min-h-screen relative overflow-hidden" style={{backgroundColor: '#111116'}}>
       {/* Background Effects */}
-      <div className="fixed inset-0 bg-gradient-mesh opacity-20" />
+      <div className="fixed inset-0 bg-gradient-mesh opacity-25" />
       <div className="fixed inset-0 bg-gradient-hero" />
 
       {/* Header Section */}
-      <header className="relative z-10 backdrop-blur-xl border-b border-white/10" style={{backgroundColor: 'rgba(10,10,15,0.85)'}}>
+      <header className="relative z-10 border-b border-white/10" style={{backgroundColor: '#111116'}}>
         <div className="container mx-auto px-4 py-12">
           <div className="text-center animate-fade-in">
             <div className="mb-6">
