@@ -14,6 +14,10 @@ interface FormData {
   countryCode: string;
   companyWebsite: string;
   email: string;
+  runsGoogleAds: string;
+  googleAdsSpend: string;
+  runsMetaAds: string;
+  metaAdsSpend: string;
 }
 
 const countryCodes = [
@@ -226,7 +230,11 @@ export default function SeoAuditForm() {
     phoneNumber: '',
     countryCode: '+1-US',
     companyWebsite: '',
-    email: ''
+    email: '',
+    runsGoogleAds: '',
+    googleAdsSpend: '',
+    runsMetaAds: '',
+    metaAdsSpend: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -314,7 +322,11 @@ export default function SeoAuditForm() {
                         phoneNumber: '',
                         countryCode: '+1-US',
                         companyWebsite: '',
-                        email: ''
+                        email: '',
+                        runsGoogleAds: '',
+                        googleAdsSpend: '',
+                        runsMetaAds: '',
+                        metaAdsSpend: ''
                       });
                     }}
                     variant="outline"
@@ -531,6 +543,76 @@ export default function SeoAuditForm() {
                           className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground placeholder:text-foreground/50"
                         />
                       </div>
+
+                      {/* Google Ads */}
+                      <div className="space-y-3">
+                        <Label className="text-sm font-semibold text-foreground/90">
+                          Do you currently run Google Ads?
+                        </Label>
+                        <Select
+                          value={formData.runsGoogleAds}
+                          onValueChange={(value) => handleInputChange('runsGoogleAds', value)}
+                        >
+                          <SelectTrigger className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground">
+                            <SelectValue placeholder="Select an option" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50">
+                            <SelectItem value="yes" className="focus:bg-primary/10 focus:text-foreground cursor-pointer">Yes</SelectItem>
+                            <SelectItem value="no" className="focus:bg-primary/10 focus:text-foreground cursor-pointer">No</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {formData.runsGoogleAds === 'yes' && (
+                        <div className="space-y-3">
+                          <Label htmlFor="googleAdsSpend" className="text-sm font-semibold text-foreground/90">
+                            How much do you spend monthly on Google Ads?
+                          </Label>
+                          <Input
+                            id="googleAdsSpend"
+                            type="text"
+                            placeholder="e.g. $1,000"
+                            value={formData.googleAdsSpend}
+                            onChange={(e) => handleInputChange('googleAdsSpend', e.target.value)}
+                            className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground placeholder:text-foreground/50"
+                          />
+                        </div>
+                      )}
+
+                      {/* Meta Ads */}
+                      <div className="space-y-3">
+                        <Label className="text-sm font-semibold text-foreground/90">
+                          Do you currently run Meta Ads?
+                        </Label>
+                        <Select
+                          value={formData.runsMetaAds}
+                          onValueChange={(value) => handleInputChange('runsMetaAds', value)}
+                        >
+                          <SelectTrigger className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground">
+                            <SelectValue placeholder="Select an option" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background/95 backdrop-blur-xl border border-white/20 rounded-xl z-50">
+                            <SelectItem value="yes" className="focus:bg-primary/10 focus:text-foreground cursor-pointer">Yes</SelectItem>
+                            <SelectItem value="no" className="focus:bg-primary/10 focus:text-foreground cursor-pointer">No</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {formData.runsMetaAds === 'yes' && (
+                        <div className="space-y-3">
+                          <Label htmlFor="metaAdsSpend" className="text-sm font-semibold text-foreground/90">
+                            How much do you spend monthly on Meta Ads?
+                          </Label>
+                          <Input
+                            id="metaAdsSpend"
+                            type="text"
+                            placeholder="e.g. $1,000"
+                            value={formData.metaAdsSpend}
+                            onChange={(e) => handleInputChange('metaAdsSpend', e.target.value)}
+                            className="h-12 bg-white/10 backdrop-blur-sm border-white/20 focus:border-primary/60 focus:bg-white/15 transition-all duration-300 rounded-xl text-foreground placeholder:text-foreground/50"
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div className="pt-4">
